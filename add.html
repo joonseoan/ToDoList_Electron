@@ -1,0 +1,44 @@
+<head>
+
+</head>
+<body>
+    <form>
+        <div>
+                <label>Enter your todo</label>
+                <!-- <input type = "text" autofocus > : it is a default input. 
+                    This default input tag can be used as below
+                    [autofocus] is nothing but cursor inside of the text bar and user can input text immediately without the text bar click -->
+                <input autofocus />
+        </div>
+        <button type = "submit" >Add</button> <!-- It must not be with <label> and <input> -->
+    </form>
+
+    <script>
+
+        const electron = require('electron');
+
+        // remember it is a main Window side.
+        const { ipcRenderer } = electron;
+
+        document.querySelector('form').addEventListener('submit', (event) => {
+
+            // no reload
+            event.preventDefault();
+
+            // debugger;
+            /**
+             * test: document.querySelector('input').value
+                "dfaf"
+             * 
+             */
+
+            
+            // document.querySelector('input')
+            // => <input autofocused> // <input> contains "value"
+             const { value } = document.querySelector('input');
+             ipcRenderer.send('todo:add', value);
+            
+        });
+    </script>
+
+</body>

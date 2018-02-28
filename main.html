@@ -1,0 +1,56 @@
+<!-- it is for a bigger window -->
+
+<head>
+
+</head>
+
+<body>
+    <h1>My Todos</h1>
+
+    <ul></ul>
+
+<script>
+    const electron = require('electron');
+    const { ipcRenderer } = electron;
+    
+    ipcRenderer.on('todo:add', (event, todo) => {
+
+        const li = document.createElement('li');
+        const text = document.createTextNode(todo);
+        const list = document.querySelector('ul');
+        
+        li.appendChild(text);
+        list.appendChild(li);
+
+    });
+
+    // We do not need to send the same info below again 
+    // as "ipcRenerer.send" in "add.html"
+    // because the "main Window" already has that info
+    /*  
+        const value = document.querySelector('ul');
+        console.log('value', value);
+        ipcRenderer.send('todo:clear', value);
+    */
+
+    // Joon's code
+    /*
+    ipcRenderer.on('todo:completeClear', (event, todo) => {
+        
+        document.querySelector('ul').innerHTML = todo;
+
+    });
+    */
+
+    // Steve's code
+    ipcRenderer.on('todo:completeClear', () => {
+        
+        list.innerHTML = "";
+
+    });
+
+
+</script>
+
+</body>
+
